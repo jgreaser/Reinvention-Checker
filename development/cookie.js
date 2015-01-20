@@ -46,7 +46,7 @@ var prototypes = {
             courseIDs: [4259],
             instructorIDs: [1212249],
             prototypeLinkA: "https://reinvention.flvs.net/plapp/development/pla_app.js",
-            criteria: "cookie['enrollments'][i]['courseId'].substr(id.length - 1) is odd",
+            criteria: "cookie['enrollments'][i]['courseId'].substr(id.length - 1)",
             consoleMessageOnLaunch: "You're getting the B version of PLA.",
             active: false
         },
@@ -61,7 +61,7 @@ var prototypes = {
         },
         4: {
             type: "feature",
-            courseIDs: [4259],
+            courseIDs: [8888],
             instructorIDs: [1212249],
             prototypeLink: "https://reinvention.flvs.net/plapp/development/pla_app.js",
             consoleMessageOnLaunch: "",
@@ -70,7 +70,7 @@ var prototypes = {
         },
         5: {
             type: "ab",
-            courseIDs: [4259],
+            courseIDs: [9999],
             instructorIDs: [1212249],
             prototypeLink: "https://reinvention.flvs.net/plapp/development/pla_app.js",
             criteria: "7th digit of cookie['enrollments'][i]['courseId'] is even",
@@ -79,7 +79,7 @@ var prototypes = {
         },
         6: {
             type: "ab",
-            courseIDs: [4259],
+            courseIDs: [6666],
             instructorIDs: [1212249],
             prototypeLink: "https://reinvention.flvs.net/plapp/development/pla_app.js",
             criteria: "cookie['enrollments'][i]['courseId'].substr(id.length - 1) is odd",
@@ -174,51 +174,39 @@ function buildCookieIDArrays() {
 //EVALUATING PROTOTYPES//
 /////////////////////////
 
-function evaluatePrototypes(prototypeList, cookieInstructorIDArray, cookieCourseIDArray) {
+function evaluatePrototypes(prototypeList, cookieCourseIDArray, cookieInstructorIDArray) {
     //loop # of prototypes, use anonymouse function to group the seperate evaluations
 
-    console.log("Cookie course ID array is " + cookieCourseIDArray);
-    console.log("Cookie instructor ID array is " + cookieInstructorIDArray);,
-
-
+  /*  console.log("Cookie course ID array is " + cookieCourseIDArray);
+    console.log("Cookie instructor ID array is " + cookieInstructorIDArray);
     console.log("prototypeList entry 1 has a courseID Array of " + prototypeList[1].courseIDs);
     console.log("prototypeList entry 1 has a instructorID Array of " + prototypeList[1].instructorIDs);
-
+*/
     for (var d = 1; d < 5; d++) {
         console.log("loop number " + d);
 
-        function matchArrays(prototypeList, cookieInstructorIDArray, cookieCourseIDArray, x) {
-            console.log("in loop, prototypeList entry " + d + " has a courseID of " + prototypeList[d].courseIDs);
-            console.log("in loop, prototypeList entry " + d + " has a instructorID of " + prototypeList[d].instructorIDs);
-            console.log("in loop, prototypeList entry active is " + prototypeList[x].active);
+        (function () {
+            //console.log("in loop, prototypeList[" + d + "] has a courseID: " + prototypeList[d].courseIDs +", has a instructorID: " + prototypeList[d].instructorIDs + ", and has active: " + prototypeList[d].active);
 
+            //evalu COURSE ID
             if (evaluateID(prototypeList[d].courseIDs, cookieCourseIDArray) == false) {
-                console.log("its false");
-            }
-            if (evaluateID(prototypeList[d].courseIDs, cookieCourseIDArray) == false) {
-                console.log("its true");
-            }
-
-            if (evaluateID(prototypeList[d].courseIDs, cookieCourseIDArray) == false) {
-                console.log("return false at course ID");
+                //console.log("return false at course ID");
                 return false;
             }
+            //eval INSTRUCTOR ID
             if (evaluateID(prototypeList[d].instructorIDs, cookieInstructorIDArray) == false) {
-                console.log("return false at instructor ID");
+                //console.log("return false at instructor ID");
                 return false;
             }
             if (evaluateCriteria(prototypeList[d].criteria) == false) {
                 return false;
             }
 
-            prototypeList[x].active = true;
-            activePrototypeArray.push(prototypeList[x]);
-        }
+            prototypeList[d].active = true;
+            activePrototypeArray.push(prototypeList[d]);
+        }());
 
-        matchArrays(prototypeList, cookieInstructorIDArray, cookieCourseIDArray, d);
-
-        console.log("after loop, prototypeList entry active is " + prototypeList[d].active);
-        console.log("activePrototypeArray contains " + activePrototypeArray.length + "objects.");
+        console.log("after loop, prototypeList entry active is " + prototypeList[d].active + " and there are  " + activePrototypeArray.length + "objects in activePrototypeArray.");
 
     }
 
@@ -228,7 +216,7 @@ function evaluatePrototypes(prototypeList, cookieInstructorIDArray, cookieCourse
     }
     if (activePrototypeArray.length == 1) {
         console.log(activePrototypeArray.length + " active prototype.");
-        return activePrototype[0];
+        return activePrototypeArray[0];
     }
     if (activePrototypeArray.length > 1) {
         console.log(activePrototypeArray.length + " active prototypes...that is too many.");
@@ -237,57 +225,66 @@ function evaluatePrototypes(prototypeList, cookieInstructorIDArray, cookieCourse
 }
 
 function evaluateID(prototypeID, cookieID) {
-    console.log("evaluateID has been called.")
+    console.log("evaluating " + prototypeID + " and " + cookieID);
+
+    var matchFound = 0;
+
     if (Array.isArray(prototypeID)) {
         for (var i = 0; i < prototypeID.length; i++) {
             //branch 1
             if (Array.isArray(cookieID)) {
                 for (var j = 0; j < cookieID.length; j++) {
+
+                    console.log("deep in loop, cookieID is " + cookieID[j]);
+                   
                     if (prototypeID[i] == cookieID[j]) {
-                        console.log("Branch 1 true" + prototypeID[i] + " and cookieID " + cookieID[j]);
+                        console.log("Branch 1 match found " + prototypeID[i] + " and cookieID " + cookieID[j]);
+                        matchFound++;
                     } else {
-                        console.log("Branch 1 false" + prototypeID[i] + " and cookieID " + cookieID[j]);
-                        return false;
+                        console.log("Branch 1 no match " + prototypeID[i] + " and cookieID " + cookieID[j]);
                     }
-                }
+                }  
             }
             //branch 2
-            else {
+           /* else {
                 if (prototypeID[i] == cookieID) {
                     console.log("Branch 2 true" + prototypeID[i] + " " + cookieID + "must be true");
+                    matchFound++;
                 } else {
                     console.log("Branch 2 false" + prototypeID[i] + " " + cookieID);
-                    return false;
                 }
             }
-        }
-    } else {
+        }*/
+    } /*else {
         //branch 3
         if (Array.isArray(cookieID)) {
             for (var q = 0; q < cookieID.length; q++) {
                 if (prototypeID == cookieID[j]) {
                     console.log("Branch 3  true" + prototypeID + " " + cookieID[j] + "must be true");
+                    matchFound++;
+
                 } else {
                     console.log("Branch 3  false" + prototypeID + " " + cookieID[j]);
                 }
-                return false;
             }
+            if (matchFound === 0){return false;}
         }
+        //branch 4
+        else {
+            if (prototypeID == cookieID) {
+                console.log("Branch 4 true " + prototypeID + " " + cookieID);
+                matchFound++;
+            } else {
+                console.log("Branch 4 false " + prototypeID + " " + cookieID);
+            }
+          
+        }*/
     }
-    //branch 4
-    else {
-        if (prototypeID == cookieID) {
-            console.log("Branch 4 true " + prototypeID + " " + cookieID);
-        } else {
-            console.log("Branch 4 false " + prototypeID + " " + cookieID);
-            return false;
-        }
-    }
-}
+     if (matchFound === 0){return false;}
 }
 
 function evaluateCriteria(criteria) { //evaluate criteria
-    if (criteria) {
+    if (criteria == true) {
         return true;
     } else {
         return false
@@ -358,6 +355,7 @@ $(document).ready(function() {
             console.log("Will not launch for mobile devices.");
         } // no launch for mobile
         else {
+            console.log("should launch now, link:" + prototypeToLaunch.prototypeLink + " and message " + prototypeToLaunch.consoleMessageOnLaunch);
             getPrototype(prototypeToLaunch.prototypeLink, prototypeToLaunch.consoleMessageOnLaunch);
         } //LAUNCH IT
 
