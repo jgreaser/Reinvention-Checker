@@ -30,6 +30,8 @@ var activePrototypeArray = [];
 //Prototype Data/////////
 /////////////////////////
 
+
+//criteria for A/B tests must be even/odd. criteria for features can be true, odd, or even
 var prototypes = {
     "prototypeList": {
         1: {
@@ -37,16 +39,16 @@ var prototypes = {
             courseIDs: [4259],
             instructorIDs: [1212249],
             prototypeLink: "https://reinvention.flvs.net/plapp/development/pla_app.js",
-            criteria: true,
+            criteria: "even", //only students with 6th digit of ID is even will recieve
             consoleMessageOnLaunch: "You're getting the A version of PLA.",
-            active: false
+            active: false //not currently used
         },
         2: {
             type: "ab",
             courseIDs: [4259],
             instructorIDs: [1212249],
-            prototypeLinkA: "https://reinvention.flvs.net/plapp/development/pla_app.js",
-            criteria: "cookie['enrollments'][i]['courseId'].substr(id.length - 1)",
+            prototypeLink: "https://reinvention.flvs.net/plapp/development/pla_app.js",
+            criteria: "odd",//only students with 6th digit of ID is even will recieve
             consoleMessageOnLaunch: "You're getting the B version of PLA.",
             active: false
         },
@@ -56,7 +58,7 @@ var prototypes = {
             instructorIDs: [1891487, 1408081, 1855468],
             prototypeLink: "https://reinvention.flvs.net/plapp/live/pla_app.js",
             consoleMessageOnLaunch: "",
-            criteria: true,
+            criteria: true,//ie, all students that match course/instructor criteria will recieve
             active: false
         },
         4: {
@@ -177,118 +179,92 @@ function buildCookieIDArrays() {
 function evaluatePrototypes(prototypeList, cookieCourseIDArray, cookieInstructorIDArray) {
     //loop # of prototypes, use anonymouse function to group the seperate evaluations
 
-  /*  console.log("Cookie course ID array is " + cookieCourseIDArray);
-    console.log("Cookie instructor ID array is " + cookieInstructorIDArray);
-    console.log("prototypeList entry 1 has a courseID Array of " + prototypeList[1].courseIDs);
-    console.log("prototypeList entry 1 has a instructorID Array of " + prototypeList[1].instructorIDs);
-*/
     for (var d = 1; d < 5; d++) {
-        console.log("loop number " + d);
 
         (function () {
-            //console.log("in loop, prototypeList[" + d + "] has a courseID: " + prototypeList[d].courseIDs +", has a instructorID: " + prototypeList[d].instructorIDs + ", and has active: " + prototypeList[d].active);
-
             //evalu COURSE ID
             if (evaluateID(prototypeList[d].courseIDs, cookieCourseIDArray) == false) {
-                //console.log("return false at course ID");
                 return false;
             }
             //eval INSTRUCTOR ID
             if (evaluateID(prototypeList[d].instructorIDs, cookieInstructorIDArray) == false) {
-                //console.log("return false at instructor ID");
                 return false;
             }
+            //eval criteria
             if (evaluateCriteria(prototypeList[d].criteria) == false) {
                 return false;
             }
-
-            prototypeList[d].active = true;
+            //if false isn't received yet, add this prototype to the activePrototypeArray
             activePrototypeArray.push(prototypeList[d]);
         }());
-
-        console.log("after loop, prototypeList entry active is " + prototypeList[d].active + " and there are  " + activePrototypeArray.length + "objects in activePrototypeArray.");
 
     }
 
     if (activePrototypeArray.length === 0) {
-        console.log(activePrototypeArray.length + " active prototypes");
+       if (isDebugging){console.log(activePrototypeArray.length + " active prototypes");}
+       
         return false;
     }
     if (activePrototypeArray.length == 1) {
-        console.log(activePrototypeArray.length + " active prototype.");
+        if (isDebugging){console.log(activePrototypeArray.length + " active prototype.");}
         return activePrototypeArray[0];
     }
     if (activePrototypeArray.length > 1) {
-        console.log(activePrototypeArray.length + " active prototypes...that is too many.");
+       if (isDebugging){console.log(activePrototypeArray.length + " active prototypes...that is too many.");}
         return false;
     }
 }
 
 function evaluateID(prototypeID, cookieID) {
-    console.log("evaluating " + prototypeID + " and " + cookieID);
+      if (isDebugging){console.log("evaluating " + prototypeID + " and " + cookieID);}
 
     var matchFound = 0;
 
     if (Array.isArray(prototypeID)) {
         for (var i = 0; i < prototypeID.length; i++) {
-            //branch 1
+            
             if (Array.isArray(cookieID)) {
                 for (var j = 0; j < cookieID.length; j++) {
 
-                    console.log("deep in loop, cookieID is " + cookieID[j]);
+                      if (isDebugging){console.log("deep in loop, cookieID is " + cookieID[j]);}
                    
                     if (prototypeID[i] == cookieID[j]) {
-                        console.log("Branch 1 match found " + prototypeID[i] + " and cookieID " + cookieID[j]);
+                         if (isDebugging){console.log("match found " + prototypeID[i] + " and cookieID " + cookieID[j]);}
                         matchFound++;
                     } else {
-                        console.log("Branch 1 no match " + prototypeID[i] + " and cookieID " + cookieID[j]);
+                        if (isDebugging){console.log("no match " + prototypeID[i] + " and cookieID " + cookieID[j]);}
                     }
                 }  
-            }
-            //branch 2
-           /* else {
-                if (prototypeID[i] == cookieID) {
-                    console.log("Branch 2 true" + prototypeID[i] + " " + cookieID + "must be true");
-                    matchFound++;
-                } else {
-                    console.log("Branch 2 false" + prototypeID[i] + " " + cookieID);
-                }
-            }
-        }*/
-    } /*else {
-        //branch 3
-        if (Array.isArray(cookieID)) {
-            for (var q = 0; q < cookieID.length; q++) {
-                if (prototypeID == cookieID[j]) {
-                    console.log("Branch 3  true" + prototypeID + " " + cookieID[j] + "must be true");
-                    matchFound++;
-
-                } else {
-                    console.log("Branch 3  false" + prototypeID + " " + cookieID[j]);
-                }
-            }
-            if (matchFound === 0){return false;}
-        }
-        //branch 4
-        else {
-            if (prototypeID == cookieID) {
-                console.log("Branch 4 true " + prototypeID + " " + cookieID);
-                matchFound++;
-            } else {
-                console.log("Branch 4 false " + prototypeID + " " + cookieID);
-            }
-          
-        }*/
+            }   
+        } 
     }
-     if (matchFound === 0){return false;}
+    else {  if (isDebugging){console.log("not an array, apparently")}}
+
+    //only returns a false if there are zero matches
+    if (matchFound === 0){return false;}
 }
 
 function evaluateCriteria(criteria) { //evaluate criteria
-    if (criteria == true) {
-        return true;
-    } else {
-        return false
-    }
+
+    if (isDebugging){console.log("Criteria is " + criteria);}
+
+    //get a number from ID to determine odd/even
+    var userIdLastDigit = parseInt(cookie['user']['userId'].substr(6, 10));
+    var userIdModulusTwo = (userIdLastDigit) % 2;
+    
+    if (isDebugging){console.log("userIdModulusTwo is " + userIdModulusTwo);}
+
+    //return true if true
+    if (criteria == true){return true;}
+
+    //return true if even
+    else if (criteria == "even"){if (userIdModulusTwo == 0){console.log("return true"); return true;}else{console.log("return false"); return false;}}
+    
+    //return true if odd
+    else if (criteria == "odd"){if (userIdModulusTwo != 0){console.log("return true"); return true;}else{console.log("return false"); return false;}}
+    
+    //return false, cause criteria doesn't exist
+    else {console.log("criteria: " + criteria);console.log("Criteria doesn't exist in current criteria options. Check your spelling!"); return false;}
 }
 
 //////////////////////////
@@ -308,6 +284,8 @@ function detectmob() {
 //Development mode functions//
 //////////////////////////////
 
+//for when you need to test outside of VSA
+
 function checkDevelopmentMode(developmentModePrototypeLink, developmentModeConsoleMessageOnLaunch) {
     if (!requireCookie) {
         if (isDebugging) {
@@ -317,7 +295,7 @@ function checkDevelopmentMode(developmentModePrototypeLink, developmentModeConso
                 console.log("A cookie IS required for the prototype to display.");
             }
         }
-        //PUT IN THE PROTOTYPE LINK AND MESSAGE HERE if you are in debug mode
+        //get the prototype using vars from var section at top of script
         getPrototype(developmentModePrototypeLink, developmentModeConsoleMessageOnLaunch);
     }
 }
@@ -335,10 +313,16 @@ function getPrototype(prototypelink, consoleMessage) {
     });
 }
 
+/////////////////////////
+///DOCUMENT READY ///////
+/////////////////////////
+
 $(document).ready(function() {
 
-    checkDevelopmentMode(); //are we in development mode? 
+    //check to see if we're in dev mode
+    checkDevelopmentMode();
 
+    //checks to see if cookie exists. If yes, do everything else.
     if (doesCookieExist()) {
         cookie = jQuery.parseJSON($.cookie("vsaSession"));
 
