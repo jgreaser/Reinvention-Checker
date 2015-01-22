@@ -1,11 +1,10 @@
 //TO DO//
 // * before adding many prototypes, we need to verify that the currently displayed course matches the course title for the prototype
 //this is the staging cookie.js
-console.log("development");
 
 //This is the Prodeo prototype launcher and A/B testing tool. Yo.
-//test teacher id is 1212249
 
+//test teacher id is 1212249
 //var courseIDs = [4025, 4259]; //live course, test course
 //var instructorIDs = [1212249, 1891487, 1408081, 1855468]; //testingID, GE, MG, AL 
 
