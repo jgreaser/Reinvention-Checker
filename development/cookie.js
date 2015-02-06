@@ -35,26 +35,26 @@ var prototypes = {
     "prototypeList": {
         1: {
             type: "ab",
-            courseIDs: [4259],
-            instructorIDs: [1212249],
-            prototypeLink: "https://reinvention.flvs.net/plapp/development/pla_app.js",
+            courseIDs: [4025],
+            instructorIDs: [1891487, 1408081, 1855468],
+            prototypeLink: "https://reinvention.flvs.net/plapp/version_scaffoldedsearch/pla_app.js",
             criteria: "even", //only students with 6th digit of ID is even will recieve
             consoleMessageOnLaunch: "You're getting the A version of PLA.",
             active: false //not currently used
         },
         2: {
             type: "ab",
-            courseIDs: [4259],
-            instructorIDs: [1212249],
-            prototypeLink: "https://reinvention.flvs.net/plapp/development/pla_app.js",
+            courseIDs: [4025],
+            instructorIDs: [1891487, 1408081, 1855468],
+            prototypeLink: "https://reinvention.flvs.net/plapp/live/pla_app.js",
             criteria: "odd",//only students with 6th digit of ID is even will recieve
             consoleMessageOnLaunch: "You're getting the B version of PLA.",
             active: false
         },
         3: {
             type: "feature",
-            courseIDs: [4025],
-            instructorIDs: [1891487, 1408081, 1855468],
+            courseIDs: [1111],
+            instructorIDs: [1111111],
             prototypeLink: "https://reinvention.flvs.net/plapp/live/pla_app.js",
             consoleMessageOnLaunch: "",
             criteria: true,//ie, all students that match course/instructor criteria will recieve
@@ -62,16 +62,16 @@ var prototypes = {
         },
         4: {
             type: "feature",
-            courseIDs: [8888],
+            courseIDs: [4259],
             instructorIDs: [1212249],
-            prototypeLink: "https://reinvention.flvs.net/plapp/development/pla_app.js",
+            prototypeLink: "https://reinvention.flvs.net/plapp/version_scaffoldedsearch/pla_app.js",
             consoleMessageOnLaunch: "",
             criteria: true,
             active: false
         },
         5: {
             type: "ab",
-            courseIDs: [9999],
+            courseIDs: [1111],
             instructorIDs: [1212249],
             prototypeLink: "https://reinvention.flvs.net/plapp/development/pla_app.js",
             criteria: "7th digit of cookie['enrollments'][i]['courseId'] is even",
@@ -80,7 +80,7 @@ var prototypes = {
         },
         6: {
             type: "ab",
-            courseIDs: [6666],
+            courseIDs: [1111],
             instructorIDs: [1212249],
             prototypeLink: "https://reinvention.flvs.net/plapp/development/pla_app.js",
             criteria: "cookie['enrollments'][i]['courseId'].substr(id.length - 1) is odd",
