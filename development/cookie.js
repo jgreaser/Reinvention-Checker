@@ -34,7 +34,7 @@ var activePrototypeArray = [];
 var prototypes = {
     "prototypeList": {
         1: {
-            type: "ab",
+            type: "feature",
             courseIDs: [4025],
             instructorIDs: [1891487, 1408081, 1855468],
             prototypeLink: "https://reinvention.flvs.net/plapp/version_scaffoldedsearch/pla_app.js",
@@ -43,9 +43,9 @@ var prototypes = {
             active: false //not currently used
         },
         2: {
-            type: "ab",
+            type: "feature",
             courseIDs: [4025],
-            instructorIDs: [1891487, 1408081, 1855468],
+            instructorIDs: [732487, 1638477, 1897368],
             prototypeLink: "https://reinvention.flvs.net/plapp/live/pla_app.js",
             criteria: "odd",//only students with 6th digit of ID is even will recieve
             consoleMessageOnLaunch: "You're getting the B version of PLA.",
@@ -53,8 +53,8 @@ var prototypes = {
         },
         3: {
             type: "feature",
-            courseIDs: [1111],
-            instructorIDs: [1111111],
+            courseIDs: [4259],
+            instructorIDs: [1212249],
             prototypeLink: "https://reinvention.flvs.net/plapp/live/pla_app.js",
             consoleMessageOnLaunch: "",
             criteria: true,//ie, all students that match course/instructor criteria will recieve
@@ -62,8 +62,8 @@ var prototypes = {
         },
         4: {
             type: "feature",
-            courseIDs: [4259],
-            instructorIDs: [1212249],
+            courseIDs: [1111],
+            instructorIDs: [1111111],
             prototypeLink: "https://reinvention.flvs.net/plapp/version_scaffoldedsearch/pla_app.js",
             consoleMessageOnLaunch: "",
             criteria: true,
@@ -72,7 +72,7 @@ var prototypes = {
         5: {
             type: "ab",
             courseIDs: [1111],
-            instructorIDs: [1212249],
+            instructorIDs: [1111111],
             prototypeLink: "https://reinvention.flvs.net/plapp/development/pla_app.js",
             criteria: "7th digit of cookie['enrollments'][i]['courseId'] is even",
             consoleMessageOnLaunch: "",
