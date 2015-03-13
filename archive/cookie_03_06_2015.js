@@ -11,7 +11,7 @@
 
 //MAIN SWITCHES & DEVELOPMENT VARS
 var requireCookie = true; // The main switch: true = live course mode, false = development mode
-var isDebugging = false; // shows logging
+var isDebugging = true; // shows logging
 var developmentModePrototypeLink = ""; //whatever you want to launch
 var developmentModeConsoleMessageOnLaunch = ""; //whatever you want console launch message to say
 
@@ -33,52 +33,60 @@ var activePrototypeArray = [];
 //criteria for A/B tests must be even/odd. criteria for features can be true, odd, or even
 var prototypes = {
     "prototypeList": {
-        1: {//TEST AREA via VSA
-            type: "ab",
+        1: {
+            type: "feature",
+            courseIDs: [4025],
+            instructorIDs: [1891487, 1408081, 1855468],
+            prototypeLink: "https://reinvention.flvs.net/plapp/live/pla_app.js",
+            criteria: true, //only students with 6th digit of ID is even will recieve
+            consoleMessageOnLaunch: "You're getting the A version of PLA.",
+            active: false //not currently used
+        },
+        2: {
+            type: "feature",
+            courseIDs: [4025],
+            instructorIDs: [732487, 1638477, 1897368],
+            prototypeLink: "https://reinvention.flvs.net/plapp/version_scaffoldedsearch/pla_app.js",
+            criteria: true,//only students with 6th digit of ID is even will recieve
+            consoleMessageOnLaunch: "You're getting the B version of PLA.",
+            active: false
+        },
+        3: {
+            type: "feature",
             courseIDs: [4259],
             instructorIDs: [1212249],
-            prototypeLink: "https://reinvention.flvs.net/plapp/version_scaffoldedsearch/pla_app_engagementP2V01B.js",
-            consoleMessageOnLaunch: "You're in the TESTING area getting P2V01B",
-            criteria: 'even',//ie, all students that match course/instructor criteria will recieve
+            prototypeLink: "https://reinvention.flvs.net/plapp/live/pla_app.js",
+            consoleMessageOnLaunch: "",
+            criteria: true,//ie, all students that match course/instructor criteria will recieve
             active: false
         },
-        2: {//LIVE, P2 V1 A to Gold, Goble, and Smith
-            type: "ab",
-            courseIDs: [4025],
-            instructorIDs: [732487, 1638477, 1897368],
-            prototypeLink: "https://reinvention.flvs.net/plapp/version_scaffoldedsearch/pla_app_engagementP2V01A.js",
-            consoleMessageOnLaunch: "You're getting P2 V1: A",
-            criteria: 'even',//ie, all students that match course/instructor criteria will recieve
+        4: {
+            type: "feature",
+            courseIDs: [1111],
+            instructorIDs: [1111111],
+            prototypeLink: "https://reinvention.flvs.net/plapp/version_scaffoldedsearch/pla_app.js",
+            consoleMessageOnLaunch: "",
+            criteria: true,
             active: false
         },
-        3: {//LIVE, P2 V1 B to Gold, Goble, and Smith
+        5: {
             type: "ab",
-            courseIDs: [4025],
-            instructorIDs: [732487, 1638477, 1897368],
-            prototypeLink: "https://reinvention.flvs.net/plapp/version_scaffoldedsearch/pla_app_engagementP2V01B.js",
-            consoleMessageOnLaunch: "P2 V1: B",
-            criteria: 'odd',//ie, all students that match course/instructor criteria will recieve
+            courseIDs: [1111],
+            instructorIDs: [1111111],
+            prototypeLink: "https://reinvention.flvs.net/plapp/development/pla_app.js",
+            criteria: "7th digit of cookie['enrollments'][i]['courseId'] is even",
+            consoleMessageOnLaunch: "",
             active: false
         },
-        4: {//LIVE, Wizard to Ellero, Guileman, and Leavitt
+        6: {
             type: "ab",
-            courseIDs: [4025],
-            instructorIDs: [1891487, 1408081, 1855468],
-            prototypeLink: "https://reinvention.flvs.net/plapp/version_scaffoldedsearch/pla_app_engagementP2V02A.js",
-            criteria: 'even', 
-            consoleMessageOnLaunch: "P2 V2: A",
-            active: false //not currently used
-        },
-        5: {//LIVE, Wizard to Ellero, Guileman, and Leavitt
-            type: "ab",
-            courseIDs: [4025],
-            instructorIDs: [1891487, 1408081, 1855468],
-            prototypeLink: "https://reinvention.flvs.net/plapp/version_scaffoldedsearch/pla_app_engagementP2V02B.js",
-            criteria: 'odd', 
-            consoleMessageOnLaunch: "P2 V2: B",
-            active: false //not currently used
+            courseIDs: [1111],
+            instructorIDs: [1212249],
+            prototypeLink: "https://reinvention.flvs.net/plapp/development/pla_app.js",
+            criteria: "cookie['enrollments'][i]['courseId'].substr(id.length - 1) is odd",
+            consoleMessageOnLaunch: "",
+            active: false
         }
-       
     }
 };
 

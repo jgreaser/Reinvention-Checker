@@ -33,7 +33,16 @@ var activePrototypeArray = [];
 //criteria for A/B tests must be even/odd. criteria for features can be true, odd, or even
 var prototypes = {
     "prototypeList": {
-        1: {//TEST AREA via VSA
+        1: {//LIVE, Wizard to Ellero, Guileman, and Leavitt
+            type: "feature",
+            courseIDs: [4025],
+            instructorIDs: [1891487, 1408081, 1855468],
+            prototypeLink: "https://reinvention.flvs.net/plapp/version_scaffoldedsearch/pla_app.js",
+            criteria: true, //only students with 6th digit of ID is even will recieve
+            consoleMessageOnLaunch: "You're getting the Wizard version of PLA.",
+            active: false //not currently used
+        },
+        2: {//TEST AREA via VSA
             type: "ab",
             courseIDs: [4259],
             instructorIDs: [1212249],
@@ -42,7 +51,7 @@ var prototypes = {
             criteria: 'even',//ie, all students that match course/instructor criteria will recieve
             active: false
         },
-        2: {//LIVE, P2 V1 A to Gold, Goble, and Smith
+        3: {//LIVE, P2 V1 A to Gold, Goble, and Smith
             type: "ab",
             courseIDs: [4025],
             instructorIDs: [732487, 1638477, 1897368],
@@ -51,7 +60,7 @@ var prototypes = {
             criteria: 'even',//ie, all students that match course/instructor criteria will recieve
             active: false
         },
-        3: {//LIVE, P2 V1 B to Gold, Goble, and Smith
+        4: {//LIVE, P2 V1 B to Gold, Goble, and Smith
             type: "ab",
             courseIDs: [4025],
             instructorIDs: [732487, 1638477, 1897368],
@@ -59,24 +68,6 @@ var prototypes = {
             consoleMessageOnLaunch: "P2 V1: B",
             criteria: 'odd',//ie, all students that match course/instructor criteria will recieve
             active: false
-        },
-        4: {//LIVE, Wizard to Ellero, Guileman, and Leavitt
-            type: "ab",
-            courseIDs: [4025],
-            instructorIDs: [1891487, 1408081, 1855468],
-            prototypeLink: "https://reinvention.flvs.net/plapp/version_scaffoldedsearch/pla_app_engagementP2V02A.js",
-            criteria: 'even', 
-            consoleMessageOnLaunch: "P2 V2: A",
-            active: false //not currently used
-        },
-        5: {//LIVE, Wizard to Ellero, Guileman, and Leavitt
-            type: "ab",
-            courseIDs: [4025],
-            instructorIDs: [1891487, 1408081, 1855468],
-            prototypeLink: "https://reinvention.flvs.net/plapp/version_scaffoldedsearch/pla_app_engagementP2V02B.js",
-            criteria: 'odd', 
-            consoleMessageOnLaunch: "P2 V2: B",
-            active: false //not currently used
         }
        
     }
