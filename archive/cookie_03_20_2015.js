@@ -32,36 +32,82 @@ var activePrototypeArray = [];
 
 //criteria for A/B tests must be even/odd. criteria for features can be true, odd, or even
 
-var prototypeCount = 3;
+var prototypeCount = 8;
 var prototypes = {
     "prototypeList": {
         1: {//TEST AREA via VSA
             type: "ab",
             courseIDs: [4259],
             instructorIDs: [1212249],
-            prototypeLink: "https://reinvention.flvs.net/plapp/version_dbTool/pla_app.js",
-            consoleMessageOnLaunch: "You're in the TESTING area",
-            criteria: true,//ie, all students that match course/instructor criteria will recieve
+            prototypeLink: "https://reinvention.flvs.net/plapp/version_scaffoldedsearch/pla_app_engagementP2V01B.js",
+            consoleMessageOnLaunch: "You're in the TESTING area getting P2V01B",
+            criteria: 'even',//ie, all students that match course/instructor criteria will recieve
             active: false
         },
         2: {//LIVE, P2 V1 A to Gold, Goble, and Smith
             type: "ab",
             courseIDs: [4025],
-            instructorIDs: [732487, 1638477, 1897368, 1891487, 1408081, 1855468, 1791459, 1701102, 855966],
-            prototypeLink: "https://reinvention.flvs.net/plapp/version_dbTool/pla_app_searchP3V01a.js",
+            instructorIDs: [732487, 1638477, 1897368],
+            prototypeLink: "https://reinvention.flvs.net/plapp/version_scaffoldedsearch/pla_app_engagementP2V01A.js",
             consoleMessageOnLaunch: "You're getting P2 V1: A",
             criteria: 'even',//ie, all students that match course/instructor criteria will recieve
             active: false
         },
-        3: {
+        3: {//LIVE, P2 V1 B to Gold, Goble, and Smith
             type: "ab",
             courseIDs: [4025],
-            instructorIDs: [732487, 1638477, 1897368, 1891487, 1408081, 1855468, 1791459, 1701102, 855966],
-            prototypeLink: "https://reinvention.flvs.net/plapp/version_dbTool/pla_app_searchP3V01b.js",
+            instructorIDs: [732487, 1638477, 1897368],
+            prototypeLink: "https://reinvention.flvs.net/plapp/version_scaffoldedsearch/pla_app_engagementP2V01B.js",
             consoleMessageOnLaunch: "P2 V1: B",
             criteria: 'odd',//ie, all students that match course/instructor criteria will recieve
             active: false
+        },
+        4: {//LIVE, Wizard to Ellero, Guileman, and Leavitt
+            type: "ab",
+            courseIDs: [4025],
+            instructorIDs: [1891487, 1408081, 1855468],
+            prototypeLink: "https://reinvention.flvs.net/plapp/version_scaffoldedsearch/pla_app_engagementP2V02A.js",
+            consoleMessageOnLaunch: "P2 V2: A",
+            criteria: 'even', 
+            active: false //not currently used
+        },
+        5: {//LIVE, Wizard to Ellero, Guileman, and Leavitt
+            type: "ab",
+            courseIDs: [4025],
+            instructorIDs: [1891487, 1408081, 1855468],
+            prototypeLink: "https://reinvention.flvs.net/plapp/version_scaffoldedsearch/pla_app_engagementP2V02B.js",
+            consoleMessageOnLaunch: "P2 V2: B",
+            criteria: 'odd', 
+            active: false //not currently used
+        },
+        6: {//just extra
+            type: "ab",
+            courseIDs: [1111],
+            instructorIDs: [111111, 111111, 111111],
+            prototypeLink: "https://reinvention.flvs.net/plapp/version_scaffoldedsearch/pla_app_engagementP2V02B.js",
+            criteria: 'odd', 
+            consoleMessageOnLaunch: "nothing to launch, one hopes",
+            active: false //not currently used
+        },
+        7: {//just extra
+            type: "ab",
+            courseIDs: [4025],
+            instructorIDs: [111111, 111111, 111111],
+            prototypeLink: "https://reinvention.flvs.net/plapp/version_scaffoldedsearch/pla_app_engagementP2V03A.js",
+            criteria: 'even', 
+            consoleMessageOnLaunch: "P2 V3: A",
+            active: false //not currently used
+        },
+        8: {//just extra
+            type: "ab",
+            courseIDs: [4025],
+            instructorIDs: [111111, 111111, 111111],
+            prototypeLink: "https://reinvention.flvs.net/plapp/version_scaffoldedsearch/pla_app_engagementP2V03B.js",
+            criteria: 'odd', 
+            consoleMessageOnLaunch: "P2 V3: B",
+            active: false //not currently used
         }
+       
     }
 };
 

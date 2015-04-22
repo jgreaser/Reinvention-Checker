@@ -31,37 +31,45 @@ var activePrototypeArray = [];
 
 
 //criteria for A/B tests must be even/odd. criteria for features can be true, odd, or even
-
-var prototypeCount = 3;
 var prototypes = {
     "prototypeList": {
-        1: {//TEST AREA via VSA
+        1: {//LIVE, Wizard to Ellero, Guileman, and Leavitt
+            type: "feature",
+            courseIDs: [4025],
+            instructorIDs: [1891487, 1408081, 1855468],
+            prototypeLink: "https://reinvention.flvs.net/plapp/version_scaffoldedsearch/pla_app.js",
+            criteria: true, //only students with 6th digit of ID is even will recieve
+            consoleMessageOnLaunch: "You're getting the Wizard version of PLA.",
+            active: false //not currently used
+        },
+        2: {//TEST AREA via VSA
             type: "ab",
             courseIDs: [4259],
             instructorIDs: [1212249],
-            prototypeLink: "https://reinvention.flvs.net/plapp/version_dbTool/pla_app.js",
-            consoleMessageOnLaunch: "You're in the TESTING area",
-            criteria: true,//ie, all students that match course/instructor criteria will recieve
+            prototypeLink: "https://reinvention.flvs.net/plapp/version_scaffoldedsearch/pla_app_engagementP2V01B.js",
+            consoleMessageOnLaunch: "You're in the TESTING area getting P2V01B",
+            criteria: 'even',//ie, all students that match course/instructor criteria will recieve
             active: false
         },
-        2: {//LIVE, P2 V1 A to Gold, Goble, and Smith
+        3: {//LIVE, P2 V1 A to Gold, Goble, and Smith
             type: "ab",
             courseIDs: [4025],
-            instructorIDs: [732487, 1638477, 1897368, 1891487, 1408081, 1855468, 1791459, 1701102, 855966],
-            prototypeLink: "https://reinvention.flvs.net/plapp/version_dbTool/pla_app_searchP3V01a.js",
+            instructorIDs: [732487, 1638477, 1897368],
+            prototypeLink: "https://reinvention.flvs.net/plapp/version_scaffoldedsearch/pla_app_engagementP2V01A.js",
             consoleMessageOnLaunch: "You're getting P2 V1: A",
             criteria: 'even',//ie, all students that match course/instructor criteria will recieve
             active: false
         },
-        3: {
+        4: {//LIVE, P2 V1 B to Gold, Goble, and Smith
             type: "ab",
             courseIDs: [4025],
-            instructorIDs: [732487, 1638477, 1897368, 1891487, 1408081, 1855468, 1791459, 1701102, 855966],
-            prototypeLink: "https://reinvention.flvs.net/plapp/version_dbTool/pla_app_searchP3V01b.js",
+            instructorIDs: [732487, 1638477, 1897368],
+            prototypeLink: "https://reinvention.flvs.net/plapp/version_scaffoldedsearch/pla_app_engagementP2V01B.js",
             consoleMessageOnLaunch: "P2 V1: B",
             criteria: 'odd',//ie, all students that match course/instructor criteria will recieve
             active: false
         }
+       
     }
 };
 
@@ -153,19 +161,19 @@ function buildCookieIDArrays() {
 function evaluatePrototypes(prototypeList, cookieCourseIDArray, cookieInstructorIDArray) {
     //loop # of prototypes, use anonymouse function to group the seperate evaluations
 
-    for (var d = 1; d < (prototypeCount+1); d++) {
+    for (var d = 1; d < 5; d++) {
 
         (function () {
             //evalu COURSE ID
-            if (evaluateID(prototypeList[d].courseIDs, cookieCourseIDArray) === false) {
+            if (evaluateID(prototypeList[d].courseIDs, cookieCourseIDArray) == false) {
                 return false;
             }
             //eval INSTRUCTOR ID
-            if (evaluateID(prototypeList[d].instructorIDs, cookieInstructorIDArray) === false) {
+            if (evaluateID(prototypeList[d].instructorIDs, cookieInstructorIDArray) == false) {
                 return false;
             }
             //eval criteria
-            if (evaluateCriteria(prototypeList[d].criteria) === false) {
+            if (evaluateCriteria(prototypeList[d].criteria) == false) {
                 return false;
             }
             //if false isn't received yet, add this prototype to the activePrototypeArray
@@ -223,19 +231,19 @@ function evaluateCriteria(criteria) { //evaluate criteria
     if (isDebugging){console.log("Criteria is " + criteria);}
 
     //get a number from ID to determine odd/even
-    var userIdLastDigit = parseInt(cookie['user']['userId'].substr(6, 10), 10);
+    var userIdLastDigit = parseInt(cookie['user']['userId'].substr(6, 10));
     var userIdModulusTwo = (userIdLastDigit) % 2;
     
     if (isDebugging){console.log("userIdModulusTwo is " + userIdModulusTwo);}
 
     //return true if true
-    if (criteria === true){return true;}
+    if (criteria == true){return true;}
 
     //return true if even
-    else if (criteria === "even"){if (userIdModulusTwo === 0){console.log("return true"); return true;}else{console.log("return false"); return false;}}
+    else if (criteria == "even"){if (userIdModulusTwo == 0){console.log("return true"); return true;}else{console.log("return false"); return false;}}
     
     //return true if odd
-    else if (criteria === "odd"){if (userIdModulusTwo !== 0){console.log("return true"); return true;}else{console.log("return false"); return false;}}
+    else if (criteria == "odd"){if (userIdModulusTwo != 0){console.log("return true"); return true;}else{console.log("return false"); return false;}}
     
     //return false, cause criteria doesn't exist
     else {console.log("criteria: " + criteria);console.log("Criteria doesn't exist in current criteria options. Check your spelling!"); return false;}
