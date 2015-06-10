@@ -48,8 +48,8 @@ var prototypes = {
             type: "ab",
             courseIDs: [4025],
             instructorIDs: [732487, 1638477, 1897368, 1891487, 1408081, 1855468, 1791459, 1701102, 855966],
-            prototypeLink: "https://reinvention.flvs.net/plapp/version_dbTool/pla_app_searchP3V01a.js",
-            consoleMessageOnLaunch: "You're getting P3 V1: A",
+            prototypeLink: "https://reinvention.flvs.net/plapp/version_active_v01/pla_app_activeP5V01a.js",
+            consoleMessageOnLaunch: "You're getting P4 V1: A",
             criteria: 'even',//ie, all students that match course/instructor criteria will recieve
             active: false
         },
@@ -57,8 +57,8 @@ var prototypes = {
             type: "ab",
             courseIDs: [4025],
             instructorIDs: [732487, 1638477, 1897368, 1891487, 1408081, 1855468, 1791459, 1701102, 855966],
-            prototypeLink: "https://reinvention.flvs.net/plapp/version_dbTool/pla_app_searchP3V01b.js",
-            consoleMessageOnLaunch: "P3 V1: B",
+            prototypeLink: "https://reinvention.flvs.net/plapp/version_active_v01/pla_app_activeP5V01b.js",
+            consoleMessageOnLaunch: "P4 V1: B",
             criteria: 'odd',//ie, all students that match course/instructor criteria will recieve
             active: false
         }
